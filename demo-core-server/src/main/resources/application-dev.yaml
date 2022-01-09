@@ -1,0 +1,36 @@
+server:
+  port: 8090
+spring:
+  redis:
+    database: 0
+    host: 127.0.0.1
+    port: 6379
+    password:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/test?useSSL=false&Unicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&allowMultiQueries=true&allowPublicKeyRetrieval=true
+    username: root
+    password: 123456
+
+token:
+  head: Authorization
+  timeOut: 120
+
+
+# MyBatis Plus 的配置项
+mybatis-plus:
+  #  在 mybatis-config/mybatis-config.xml 中设置
+  #  configuration:
+  #    map-underscore-to-camel-case: true # 虽然默认为 true ，但是还是显示去指定下。
+  #    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl # 打印日志
+  global-config:
+    db-config:
+#      id-type: AUTO # 自增 ID
+      logic-delete-value: 1 # 逻辑已删除值(默认为 1)
+      logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
+  mapper-locations: classpath*:mapper/*.xml
+#  config-location: classpath:mybatis-config/mybatis-config.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true    #返回对象属性使用驼峰命名
+    object-wrapper-factory: com.baomidou.mybatisplus.extension.MybatisMapWrapperFactory     #返回JsonObject、Map属性使用驼峰命名

@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: demo-core-server
+  profiles:
+    active: dev
+  servlet:
+    multipart:
+      max-file-size: 100MB # 限制单个文件大小
+      max-request-size: 100MB # 限制全部总文件大小

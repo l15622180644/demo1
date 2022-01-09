@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.lzk</groupId>
+    <artifactId>demo-dependencies</artifactId>
+    <version>${revision}</version>
+
+    <name>demo-dependencies</name>
+
+    <packaging>pom</packaging>
+
+    <description>依赖统一管理</description>
+
+    <properties>
+        <revision>1.0.0</revision>
+        <spring.boot.version>2.6.0</spring.boot.version>
+        <hutool.version>5.6.1</hutool.version>
+        <lombok.version>1.18.20</lombok.version>
+        <fastjson.version>1.2.78</fastjson.version>
+        <jwt.version>3.18.2</jwt.version>
+        <bouncycastle.version>1.69</bouncycastle.version>
+        <mybatisplus.version>3.4.3.1</mybatisplus.version>
+        <druid.version>1.2.4</druid.version>
+
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!--统一依赖管理-->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring.boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!--工具包-->
+            <dependency>
+                <groupId>com.lzk</groupId>
+                <artifactId>demo-common</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.lzk</groupId>
+                <artifactId>demo-security</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.lzk</groupId>
+                <artifactId>demo-core-server</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.lzk</groupId>
+                <artifactId>demo-mybatisplus</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>${hutool.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
+            </dependency>
+
+            <!--jwt-->
+            <dependency>
+                <groupId>com.auth0</groupId>
+                <artifactId>java-jwt</artifactId>
+                <version>${jwt.version}</version>
+            </dependency>
+            <!--哈希算法、加密算法-->
+            <dependency>
+                <groupId>org.bouncycastle</groupId>
+                <artifactId>bcprov-jdk15on</artifactId>
+                <version>${bouncycastle.version}</version>
+            </dependency>
+            <!--关系型数据库-->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid-spring-boot-starter</artifactId>
+                <version>${druid.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatisplus.version}</version>
+            </dependency>
+
+
+        </dependencies>
+    </dependencyManagement>
+
+
+</project>

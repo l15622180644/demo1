@@ -1,0 +1,23 @@
+package com.lzk.demomybatisplus.config;
+
+import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
+import org.apache.ibatis.reflection.MetaObject;
+import org.springframework.stereotype.Component;
+
+/**
+ * @author
+ * @module
+ * @date 2021/6/19 11:02
+ */
+@Component
+public class MyMetaObjectHandler implements MetaObjectHandler {
+    @Override
+    public void insertFill(MetaObject metaObject) {
+        this.strictUpdateFill(metaObject, "createTime", () -> System.currentTimeMillis()/1000, Long.class);
+    }
+
+    @Override
+    public void updateFill(MetaObject metaObject) {
+        this.strictUpdateFill(metaObject, "updateTime", () -> System.currentTimeMillis()/1000, Long.class);
+    }
+}

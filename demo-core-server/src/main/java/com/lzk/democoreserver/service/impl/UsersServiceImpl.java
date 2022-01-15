@@ -55,17 +55,19 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper,Users> implements 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Users users = getOne(Wrappers.lambdaQuery(Users.class).eq(Users::getLoginName,username));
-        if(users==null) throw new ServiceException(Status.LOGINUSERNAMENOTDOUND);
+        if(users==null) throw new ServiceException(Status.LOGIN_FAIL_CAUSE_PWD);
         return new SecurityUserInfo(users,null);
     }
 
     @Override
     public BaseResult loginByPassword(LoginVO loginVO) {
-//        if(!redisTemplate.opsForValue().get(loginVO.getUuid()).toString().equalsIgnoreCase(loginVO.getCode())) return new BaseResult(Status.LOGINFAILCAUSECODE);
+        Object realCode = redisTemplate.opsForValue().get(loginVO.getUuid());
+        if(realCode==null) return new BaseResult(Status.LOGIN_FAIL_CAUSE_CODE_INVALID);
+        if(!realCode.toString().equalsIgnoreCase(loginVO.getCode())) return new BaseResult(Status.LOGINFAILCAUSECODE);
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginVO.getUserName(), loginVO.getPassword()));
         SecurityUserInfo securityUserInfo = (SecurityUserInfo)authentication.getPrincipal();
         Users users = (Users) securityUserInfo.getUserInfo();
-        if(!users.getPassword().equals(AesUtil.enCode(loginVO.getPassword()))) return new BaseResult(Status.LOGINPASSWORDERROR);
+        if(!users.getPassword().equals(AesUtil.enCode(loginVO.getPassword()))) return new BaseResult(Status.LOGIN_FAIL_CAUSE_PWD);
         String token = AesUtil.enCode(users.getId() + TimeHelper.getCurrentTime10Str());
         String jwtToken = JwtUtil.createToken(token);
         securityUserInfo.setToken(jwtToken);

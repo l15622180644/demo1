@@ -1,8 +1,12 @@
 package com.lzk.democoreserver.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
+import java.util.List;
+
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -30,7 +34,7 @@ public class SysMenu implements Serializable {
     private String permission;
 
     /** 菜单类型（M目录 C菜单 F按钮） */
-    private Integer menuType;
+    private String menuType;
 
     /** 显示顺序 */
     private Integer sort;
@@ -57,7 +61,11 @@ public class SysMenu implements Serializable {
     private Long updateTime;
 
     /** 是否删除 */
+    @TableLogic
     private Integer deleted;
+
+    @TableField(exist = false)
+    private List<SysMenu> children;
 
 
 }

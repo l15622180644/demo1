@@ -4,6 +4,7 @@ package com.lzk.democoreserver.controller;
 import com.lzk.democommon.base.BaseResult;
 import com.lzk.democoreserver.controller.vo.LoginVO;
 import com.lzk.democoreserver.service.UsersService;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +20,7 @@ public class UsersController {
     private UsersService usersService;
 
     @PostMapping("/login")
-    public BaseResult loginByPW(@RequestBody LoginVO loginVO){
+    public BaseResult loginByPW(@RequestBody @Validated LoginVO loginVO){
         return usersService.loginByPassword(loginVO);
     }
 }

@@ -3,6 +3,7 @@ package com.lzk.democommon.base;
 
 import com.alibaba.fastjson.JSON;
 import com.lzk.democommon.status.Status;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
 
@@ -76,6 +77,12 @@ public class BaseResult implements Serializable {
     public BaseResult(Status resultStatus, Object data) {
         this.code = resultStatus.code();
         this.msg = resultStatus.msg();
+        this.data = data;
+    }
+
+    public BaseResult(Status resultStatus, Object data, String msg) {
+        this.code = resultStatus.code();
+        this.msg = StringUtils.isNotBlank(msg)?msg:resultStatus.msg();
         this.data = data;
     }
 

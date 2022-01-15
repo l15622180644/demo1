@@ -14,11 +14,11 @@
     <description>这是一个demo</description>
 
     <modules>
-        <!--<module>demo-dependencies</module>
+        <module>demo-dependencies</module>
         <module>demo-common</module>
         <module>demo-core-server</module>
         <module>demo-security</module>
-        <module>demo-mybatisplus</module>-->
+        <module>demo-mybatisplus</module>
     </modules>
 
     <properties>

@@ -38,11 +38,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Resource
     private AccessDeniedHandlerImpl accessDeniedHandler;
 
-    @Autowired
+    @Resource
     @Lazy
     private LogoutSuccessHandler logoutSuccessHandler;
 
-    @Autowired
+    @Resource
     @Lazy
     private JWTAuthenticationTokenFilter jwtAuthenticationTokenFilter;
 
@@ -72,6 +72,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         //请求过滤
         http.authorizeHttpRequests()
                 .antMatchers("/usersService/login").permitAll()
+                .antMatchers("/sysService/captcha").permitAll()
                 .anyRequest().authenticated();
 
         http.addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);

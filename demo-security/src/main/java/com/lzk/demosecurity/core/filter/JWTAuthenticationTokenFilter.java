@@ -42,7 +42,8 @@ public class JWTAuthenticationTokenFilter extends OncePerRequestFilter {
                 //设置到security上下文
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);
             }else {
-                ServletUtil.returnJSON(response, Status.TOKENTIMEOUT,"无效token");
+                ServletUtil.returnJSON(response, Status.TOKENTIMEOUT,"身份验证失败");
+                return;
             }
         }
         filterChain.doFilter(request,response);

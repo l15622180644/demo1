@@ -14,18 +14,7 @@ import java.util.Map;
 //@SpringBootTest
 class DemoCoreServerApplicationTests {
 
-    @Test
-    void test1() {
-        Users users = new Users();
-        users.setId(1L);
-        users.setLoginName("lzk");
-        users.setPassword("6868686");
-        SecurityUserInfo info = new SecurityUserInfo(JSONObject.parseObject(JSON.toJSONString(users)),null);
-        info.setToken("uuuuuuu");
-        info.setPermissions(new ArrayList<>());
-        SecurityUserInfo parseObject = JSONObject.parseObject(JSON.toJSONString(info),SecurityUserInfo.class);
-        int a = 1;
-    }
+
 
 
 }

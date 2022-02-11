@@ -3,6 +3,7 @@ package com.lzk.democommon.utils;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.exceptions.SignatureVerificationException;
 import com.auth0.jwt.exceptions.TokenExpiredException;
@@ -59,16 +60,21 @@ public class JwtUtil {
             JWTVerifier verifier = JWT.require(Algorithm.HMAC256(SECRET)).build();
             DecodedJWT decodedJWT = verifier.verify(token);
             return decodedJWT.getClaim("token").asString();
+        } catch (JWTDecodeException e) {
+            e.printStackTrace();
+            System.out.println("token解析失败，请检查该token："+token);
+            return null;
         } catch (SignatureVerificationException e) {
             e.printStackTrace();
-            System.out.println("token无效");
+            System.out.println("token无效："+token);
             return null;
         } catch (TokenExpiredException e) {
             e.printStackTrace();
-            System.out.println("token已过期");
+            System.out.println("token已过期："+token);
             return null;
         } catch (JWTVerificationException e) {
             e.printStackTrace();
+            System.out.println("token解析发生未知异常："+token);
             return null;
         }
     }

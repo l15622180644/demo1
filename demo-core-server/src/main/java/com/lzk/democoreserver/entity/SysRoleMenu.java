@@ -20,5 +20,11 @@ public class SysRoleMenu implements Serializable {
 
     private Long updateTime;
 
-    private Integer deleted;
+    public SysRoleMenu() {
+    }
+
+    public SysRoleMenu(Long roleId, Long menuId) {
+        this.roleId = roleId;
+        this.menuId = menuId;
+    }
 }

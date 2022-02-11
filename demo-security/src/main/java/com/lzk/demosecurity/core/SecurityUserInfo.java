@@ -20,23 +20,34 @@ public class SecurityUserInfo implements UserDetails {
 
     private Object userInfo;
 
-    private List<String> permissions;
+    private List<String> perms;
 
     private String token;
 
     private Long loginTime;
+
+    private List<String> roleName;
+
+    private List<Long> roleIds;
 
     public SecurityUserInfo() {
     }
 
     public SecurityUserInfo(Object userInfo, List<String> permissions) {
         this.userInfo = userInfo;
-        this.permissions = permissions;
+        this.perms = permissions;
+    }
+
+    public SecurityUserInfo(Object userInfo, List<String> perms, List<String> roleName, List<Long> roleIds) {
+        this.userInfo = userInfo;
+        this.perms = perms;
+        this.roleName = roleName;
+        this.roleIds = roleIds;
     }
 
     public SecurityUserInfo(Object userInfo, List<String> permissions, String token, Long loginTime) {
         this.userInfo = userInfo;
-        this.permissions = permissions;
+        this.perms = permissions;
         this.token = token;
         this.loginTime = loginTime;
     }

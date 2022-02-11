@@ -6,6 +6,8 @@ import com.lzk.democommon.base.BaseParam;
 import com.lzk.democommon.base.BaseResult;
 import com.lzk.democoreserver.entity.SysMenu;
 
+import java.util.List;
+
 public interface SysMenuService extends IService<SysMenu> {
 
     BaseResult getSysMenuPage(BaseParam param);
@@ -21,5 +23,9 @@ public interface SysMenuService extends IService<SysMenu> {
     BaseResult getChildMenu(BaseParam param);
 
     BaseResult getSysMenuTree(BaseParam param);
+
+    BaseResult getSysMenuTreeByUser(BaseParam param);
+
+    List<String> getPerms(Long userId);
 
 }

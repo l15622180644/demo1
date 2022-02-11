@@ -1,6 +1,7 @@
 package com.lzk.democoreserver.service.impl;
 
 import com.lzk.democommon.base.BaseResult;
+import com.lzk.democommon.constant.Constants;
 import com.lzk.democommon.status.Status;
 import com.lzk.democommon.utils.Base64Utils;
 import com.lzk.democommon.utils.CaptchaUtils;
@@ -38,7 +39,7 @@ public class SysServiceImpl implements SysService {
     public BaseResult captcha() {
         String code = RandomCodeUtils.getRandomCode(4);
         String uuid = UuidUtil.get32UUID();
-        redisTemplate.opsForValue().set(uuid,code,3L, TimeUnit.MINUTES);
+        redisTemplate.opsForValue().set(Constants.CAPTCHA_CODE_KEY.getName() + uuid,code,3L, TimeUnit.MINUTES);
         try (ByteArrayOutputStream out = new ByteArrayOutputStream()){
             BufferedImage image = CaptchaUtils.create(200, 100, code);
             ImageIO.write(image,"jpg",out);
@@ -48,7 +49,7 @@ public class SysServiceImpl implements SysService {
             return BaseResult.success(map);
         } catch (Exception e) {
             e.printStackTrace();
-            redisTemplate.delete(uuid);
+            redisTemplate.delete(Constants.CAPTCHA_CODE_KEY.getName() + uuid);
         }
         return BaseResult.error(Status.EXCEPTION);
     }

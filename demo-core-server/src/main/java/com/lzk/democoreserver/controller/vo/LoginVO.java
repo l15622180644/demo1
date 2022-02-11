@@ -8,7 +8,7 @@ import javax.validation.constraints.NotEmpty;
 public class LoginVO {
 
     @NotEmpty(message = "账号不能为空")
-    private String userName;
+    private String loginName;
 
     @NotEmpty(message = "密码不能为空")
     private String password;
@@ -17,6 +17,6 @@ public class LoginVO {
     private String code;
 
     @NotEmpty(message = "验证码key不能为空")
-    private String uuid;
+    private String key;
 
 }

@@ -62,7 +62,7 @@ public class SysMenu implements Serializable {
 
     /** 是否删除 */
     @TableLogic
-    private Integer deleted;
+    private Integer isDel;
 
     @TableField(exist = false)
     private List<SysMenu> children;

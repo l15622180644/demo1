@@ -22,4 +22,6 @@ public interface RoleService extends IService<Role> {
 
     List<Role> getRoleUser(Long userId);
 
+    BaseResult updateRolePrivilege(Role role);
+
 }

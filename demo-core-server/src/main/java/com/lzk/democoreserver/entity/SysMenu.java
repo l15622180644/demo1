@@ -33,8 +33,8 @@ public class SysMenu implements Serializable {
     /** 权限标识 */
     private String permission;
 
-    /** 菜单类型（M目录 C菜单 F按钮） */
-    private String menuType;
+    /** 菜单类型 */
+    private Integer menuType;
 
     /** 显示顺序 */
     private Integer sort;

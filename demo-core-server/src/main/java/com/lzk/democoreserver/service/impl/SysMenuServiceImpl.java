@@ -69,12 +69,14 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
     @Override
     public BaseResult getChildMenu(BaseParam param) {
         if (param.getId() == null) return BaseResult.error(Status.PARAMEXCEPTION);
-        return BaseResult.success(getChildMenu(param.getId(),param.getStatus(),param.getStrType()));
+        return BaseResult.success(getChildMenu(param.getId(),param.getStatus(),param.getType()));
     }
 
     @Override
     public BaseResult getSysMenuTree(BaseParam param) {
-        List<SysMenu> list = list();
+        List<SysMenu> list = list(Wrappers.lambdaQuery(entityClass)
+                .eq(SysMenu::getStatus,0)
+                .eq(param.getType()!=null,SysMenu::getMenuType,param.getType()));
         return BaseResult.success(TreeUtils.listToTree(JSONArray.toJSONString(list),"parentId","id","children","sort",0));
     }
 
@@ -82,7 +84,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
     public BaseResult getSysMenuTreeByUser(BaseParam param) {
         SecurityUserInfo user = MySecurityUtil.getUser();
         Users userInfo = (Users)user.getUserInfo();
-//        if(user.getRoleIds().contains(1L)) return getSysMenuTree(new BaseParam());
+        if(user.getRoleIds().contains(1L)) return getSysMenuTree(param);
         List<SysMenu> menu = sysMenuMapper.getSysMenu(Wrappers.query()
                 .eq("a.user_id", userInfo.getId())
                 .eq("b.status", 0)
@@ -101,14 +103,14 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
         return menu.stream().map(SysMenu::getPermission).collect(Collectors.toList());
     }
 
-    private List<SysMenu> getChildMenu(Long id,Integer status,String strType) {
+    private List<SysMenu> getChildMenu(Long id,Integer status,Integer type) {
         List<SysMenu> list = list(Wrappers.lambdaQuery(SysMenu.class)
                 .eq(SysMenu::getParentId, id)
                 .eq(status!=null,SysMenu::getStatus, status)
-                .eq(StringUtils.isNotBlank(strType),SysMenu::getMenuType,strType)
+                .eq(type!=null,SysMenu::getMenuType,type)
                 .orderByAsc(SysMenu::getSort));
         for(SysMenu menu : list){
-            List<SysMenu> childMenu = getChildMenu(menu.getId(),status,strType);
+            List<SysMenu> childMenu = getChildMenu(menu.getId(),status,type);
             menu.setChildren(childMenu);
         }
         return list;

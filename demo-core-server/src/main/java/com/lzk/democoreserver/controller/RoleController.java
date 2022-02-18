@@ -19,7 +19,7 @@ public class RoleController {
     private RoleService roleService;
 
     /**
-     * 查询【请填写功能名称】列表
+     * 查询【】列表
      */
     @PostMapping("/getRolePage")
     public BaseResult getRolePage(@RequestBody BaseParam param) {
@@ -28,7 +28,7 @@ public class RoleController {
 
 
     /**
-     * 获取【请填写功能名称】详细信息
+     * 获取【】详细信息
      */
     @PostMapping("/getRoleOne")
     public BaseResult getRoleOne(@RequestBody BaseParam param) {
@@ -36,7 +36,7 @@ public class RoleController {
     }
 
     /**
-     * 新增【请填写功能名称】
+     * 新增【】
      */
     @Transactional
 //    @Log(content = "【请填写功能名称】", type = Log.INSERT)
@@ -46,7 +46,7 @@ public class RoleController {
     }
 
     /**
-     * 更新【请填写功能名称】
+     * 更新【】
      */
     @Transactional
 //    @Log(content = "【请填写功能名称】", type = Log.UPDATE)
@@ -56,12 +56,23 @@ public class RoleController {
     }
 
     /**
-     * 删除【请填写功能名称】
+     * 删除【】
      */
     @Transactional
 //    @Log(content = "【请填写功能名称】", type = Log.DELETE)
     @PostMapping("/delRole")
     public BaseResult delRole(@RequestBody BaseParam param) {
         return roleService.delRole(param);
+    }
+
+    /**
+     * 修改角色权限
+     * @param role
+     * @return
+     */
+    @Transactional
+    @PostMapping("/updateRolePrivilege")
+    public BaseResult updateRolePrivilege(@RequestBody Role role){
+        return roleService.updateRolePrivilege(role);
     }
 }

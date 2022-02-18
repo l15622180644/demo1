@@ -18,6 +18,9 @@ public class Users implements Serializable {
 
     private String password;
 
+    /** 是否删除（0否，1是） */
+    private Integer idDel;
+
     @TableField(exist = false)
     private List<Long> roleIds;
 }

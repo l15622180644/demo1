@@ -77,7 +77,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
         List<SysMenu> list = list(Wrappers.lambdaQuery(entityClass)
                 .eq(SysMenu::getStatus,0)
                 .eq(param.getType()!=null,SysMenu::getMenuType,param.getType()));
-        return BaseResult.success(TreeUtils.listToTree(JSONArray.toJSONString(list),"parentId","id","children","sort",0));
+        return BaseResult.success(TreeUtils.listToTree(SysMenu.class,JSONArray.toJSONString(list),"parentId","id","children","sort",0));
     }
 
     @Override
@@ -91,7 +91,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
                 .eq("d.status", 0)
                 .eq(StringUtils.isNotBlank(param.getStrType()),"d.menu_type",param.getStrType())
         );
-        return BaseResult.success(TreeUtils.listToTree(JSONArray.toJSONString(menu),"parentId","id","children","sort",0));
+        return BaseResult.success(TreeUtils.listToTree(SysMenu.class,JSONArray.toJSONString(menu),"parentId","id","children","sort",0));
     }
 
     @Override

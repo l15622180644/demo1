@@ -24,16 +24,18 @@ public class TreeUtils {
      * @param rootFlag      根节点标记
      * @return
      */
-    public static List<JSONObject> listToTree(String jsonArray, String pidName, String idName, String childName, String sortName, long rootFlag){
+    public static <T> List<T> listToTree(Class<T> tClass,String jsonArray, String pidName, String idName, String childName, String sortName, long rootFlag){
         Map<String,Object> map = new HashMap<>();
         map.put("sortName",sortName);
         threadLocal.set(map);
         List<JSONObject> list = JSONArray.parseArray(jsonArray).toJavaList(JSONObject.class);
         List<JSONObject> rootList = getRootList(list, pidName, rootFlag);
+        List<T> convertList = new ArrayList<>();
         rootList.forEach(v->{
             v.put(childName,getChildren(v.getLong(idName),list,pidName,idName,childName));
+            convertList.add(v.toJavaObject(tClass));
         });
-        return rootList;
+        return convertList;
     }
 
 
